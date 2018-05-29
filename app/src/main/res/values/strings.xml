@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Kamus Aneka Bahasa</string>
+    <string name="app_first_run">First Run!</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="english_indonesia">English-Indonesia</string>
+    <string name="indonesia_english">Indonesia-English</string>
+
+    <string name="translate">Terjemahan</string>
+
+    <string name="share">Bagikan</string>
+    <string name="share_description">Lupa arti kata dalam bahasa inggris? Download aplikasi keren ini biar kamu ga bingung!</string>
+
+    <string name="search_by_meaning">cari arti kata</string>
+
+    <string name="first_load">Sistem akan meload data untuk pertama kali\nHarap menunggu</string>
+    <string name="title_activity_main2">Main2Activity</string>
+</resources>
