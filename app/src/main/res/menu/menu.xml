@@ -4,10 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
+    <item
+        android:id="@+id/selectIndonesia"
+        android:orderInCategory="100"
+        android:title="Indonesia"/>
+
+    <item
+        android:id="@+id/selectInggris"
+        android:orderInCategory="100"
+        android:title="Inggris"/>
+
+    <item
+        android:id="@+id/selectArab"
+        android:orderInCategory="100"
+        android:title="Arab"/>
 
     <item
         android:id="@+id/action_filter"
         android:orderInCategory="100"
         android:title="About"
         app:showAsAction="never" />
+
 </menu>

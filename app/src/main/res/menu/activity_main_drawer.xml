@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/nav_indonesia"
+            android:checked="false"
+            android:title="Indonesia" />
+        <item
+            android:id="@+id/nav_inggris"
+            android:title="Inggris" />
+        <item
+            android:id="@+id/nav_arab"
+            android:checked="false"
+            android:title="Arab" />
+        <item
+            android:id="@+id/nav_tambahkata"
+            android:checked="false"
+            android:title="Tambah Kata" />
+        <item
+            android:id="@+id/nav_bookmark"
+            android:checked="false"
+            android:title="Bookmark" />
+        <item
+            android:id="@+id/nav_about"
+            android:checked="false"
+            android:title="About" />
+    </group>
+
+
+</menu>

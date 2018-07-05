@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+
+    <FrameLayout
+        android:id="@+id/frame1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.mancj.materialsearchbar.MaterialSearchBar
+                    android:id="@+id/txtIndonesia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:mt_maxSuggestionsCount="10"
+                    app:mt_placeholder="@string/cari_kata" />
+
+
+                <Button
+                    android:id="@+id/btnTerjemah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="#F06292"
+                    android:text="Terjemahkan"
+                    android:textColor="#FFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="English"
+                    android:textAllCaps="true" />
+
+                <EditText
+                    android:id="@+id/txtInggris"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:text="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Arab"
+                    android:textAllCaps="true" />
+
+                <EditText
+                    android:id="@+id/txtArab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:text="" />
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.mancj.materialsearchbar.MaterialSearchBar
+
+                    android:id="@+id/txtInggris2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:mt_maxSuggestionsCount="10"
+                    app:mt_placeholder="@string/search_word" />
+
+
+                <Button
+                    android:id="@+id/btnTranslate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="#F06292"
+                    android:text="Translate"
+                    android:textColor="#FFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Indonesia"
+                    android:textAllCaps="true" />
+
+                <EditText
+                    android:id="@+id/txtIndonesia2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:text="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Arab"
+                    android:textAllCaps="true" />
+
+                <EditText
+                    android:id="@+id/txtArab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:text="" />
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/frame3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <com.mancj.materialsearchbar.MaterialSearchBar
+
+                    android:id="@+id/txtArab3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:mt_maxSuggestionsCount="10"
+                    app:mt_placeholder="@string/arab_word" />
+
+
+                <Button
+                    android:id="@+id/btnTarjama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="#F06292"
+                    android:text="Tarjama"
+                    android:textColor="#FFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Indonesia"
+                    android:textAllCaps="true" />
+
+                <EditText
+                    android:id="@+id/txtIndonesia3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:text="" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Inggris"
+                    android:textAllCaps="true" />
+
+                <EditText
+                    android:id="@+id/txtInggris3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:focusable="false"
+                    android:text="" />
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </FrameLayout>
+
+
+</LinearLayout>
+
+
+

@@ -1,72 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.user.kamusbahasa.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
 
-    <com.mancj.materialsearchbar.MaterialSearchBar
-        android:id="@+id/txtIndonesia"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        app:mt_maxSuggestionsCount="10"
-        app:mt_placeholder="@string/search_by_meaning" />
-
-    <ScrollView
+    <include
+        layout="@layout/app_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+        android:layout_height="match_parent" />
 
-            <Button
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_main_drawer" />
 
-                android:id="@+id/btnTerjemah"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#F06292"
-                android:text="Terjemahkan"
-                android:textColor="#FFF" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="English"
-                android:textAllCaps="true" />
-
-            <EditText
-                android:id="@+id/txtInggris"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:text="" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Arab"
-                android:textAllCaps="true" />
-
-            <EditText
-                android:id="@+id/txtArab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:text="" />
-
-
-        </LinearLayout>
-
-
-    </ScrollView>
-
-
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>
