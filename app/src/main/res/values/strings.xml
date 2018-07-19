@@ -10,16 +10,14 @@
 
     <string name="translate">Terjemahan</string>
 
-    <string name="share">Bagikan</string>
-    <string name="share_description">Lupa arti kata dalam bahasa inggris? Download aplikasi keren ini biar kamu ga bingung!</string>
+
 
     <string name="cari_kata">cari arti kata</string>
     <string name="search_word">search word</string>
     <string name="arab_word">udkhul kalimatan</string>
 
-    <string name="first_load">Sistem akan meload data untuk pertama kali\nHarap menunggu</string>
-    <string name="title_activity_main2">Main2Activity</string>
 
     <string name="openDrawer">Drawer dibuka</string>
     <string name="closeDrawer">Drawer ditutup</string>
+    <string name="belum_ada_bookmark_tersimpan">Belum Ada Bookmark Tersimpan</string>
 </resources>

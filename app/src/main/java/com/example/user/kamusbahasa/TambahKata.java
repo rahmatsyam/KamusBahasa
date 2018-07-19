@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ public class TambahKata extends AppCompatActivity {
         dataKamus = new DatabaseHelper(this);
         db = dataKamus.getWritableDatabase();
         setContentView(R.layout.activity_tambah_kata);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ETindonesia = findViewById(R.id.txtIndonesia);
         ETinggris = findViewById(R.id.txtInggris);
@@ -69,6 +71,18 @@ public class TambahKata extends AppCompatActivity {
             }
 
         }
+
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+
+            finish();
+        }
+        return true;
 
 
     }

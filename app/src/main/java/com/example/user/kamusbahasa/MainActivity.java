@@ -1,84 +1,125 @@
 package com.example.user.kamusbahasa;
 
-import android.annotation.SuppressLint;
+
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
-
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+
 import com.example.user.kamusbahasa.helper.DatabaseHelper;
+import com.example.user.kamusbahasa.utils.BaseActivity;
+import com.github.ivbaranov.mfb.MaterialFavoriteButton;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
 
-public class MainActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
+public class MainActivity extends BaseActivity {
 
     private SQLiteDatabase db = null;
     private Cursor kamusCursor = null;
 
-    private DatabaseHelper dataKamus;
+    DatabaseHelper dataKamus;
 
-    private EditText txtInggris, txtArab;
-    private EditText txtIndonesia2, txtArab2;
-    private EditText txtIndonesia3, txtInggris3;
+    @BindView(R.id.frame1)
+    FrameLayout frameLayout;
+    @BindView(R.id.frame2)
+    FrameLayout frameLayout2;
+    @BindView(R.id.frame3)
+    FrameLayout frameLayout3;
 
-    String inputan, inputan2, inputan3;
+    @BindView(R.id.txtInggris)
+    EditText txtInggris;
+    @BindView(R.id.txtArab)
+    EditText txtArab;
 
-    private MaterialSearchBar txtIndonesia, txtInggris2, txtArab3;
+    @BindView(R.id.txtIndonesia2)
+    EditText txtIndonesia2;
+    @BindView(R.id.txtArab2)
+    EditText txtArab2;
+    @BindView(R.id.txtIndonesia3)
+    EditText txtIndonesia3;
+    @BindView(R.id.txtInggris3)
+    EditText txtInggris3;
 
-    LayoutInflater inflater;
-    AlertDialog.Builder Builder;
-    View dialogView;
+    @BindView(R.id.txtIndonesia)
+    MaterialSearchBar txtIndonesia;
+    @BindView(R.id.txtInggris2)
+    MaterialSearchBar txtInggris2;
+    @BindView(R.id.txtArab3)
+    MaterialSearchBar txtArab3;
+
+    @BindView(R.id.btnTerjemah)
+    Button btnTerjemahan;
+    @BindView(R.id.btnTranslate)
+    Button btnTranslate;
+    @BindView(R.id.btnTarjama)
+    Button btnTarjama;
+
+    @BindView(R.id.icon_fav)
+    MaterialFavoriteButton favoriteButtonIndo;
+    @BindView(R.id.icon_fav2)
+    MaterialFavoriteButton favoriteButtonEng;
+    @BindView(R.id.icon_fav3)
+    MaterialFavoriteButton favoriteButtonArab;
+
+    @BindView(R.id.ic_refresh)
+    ImageView imgRefresh;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
-    FrameLayout frameLayout, frameLayout2, frameLayout3;
+    String inputan, inputan2, inputan3;
 
     public static final String INGGRIS = "inggris";
     public static final String INDONESIA = "indonesia";
     public static final String ARAB = "arab";
 
-    Button btnTerjemahan;
-    Button btnTranslate;
-    Button btnTarjama;
+    public static final String FAVORITEINDO = "favoriteindo";
+    public static final String FAVORITEING = "favoriteing";
+    public static final String FAVORITEARAB = "favoritearab";
 
-    Toolbar toolbar;
-    com.example.user.kamusbahasa.Toast toast;
+    public String goi;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         dataKamus = new DatabaseHelper(this);
         db = dataKamus.getWritableDatabase();
-
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Kamusku");
-
+        getSupportActionBar().setTitle("Kamus Aneka");
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
                 if (menuItem.isChecked()) menuItem.setChecked(false);
                 else menuItem.setChecked(true);
@@ -87,10 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (menuItem.getItemId()) {
 
-
                     case R.id.nav_indonesia:
-
-
                         frameLayout2.setVisibility(View.GONE);
                         frameLayout3.setVisibility(View.GONE);
                         frameLayout.setVisibility(View.VISIBLE);
@@ -113,12 +151,12 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     case R.id.nav_bookmark:
-
+                        Intent bookmark = new Intent(MainActivity.this, Bookmark.class);
+                        startActivity(bookmark);
                         return true;
                     case R.id.nav_about:
                         DialogForm();
                         return true;
-
                     default:
                         Toast.makeText(getBaseContext(), "Kesalahan Terjadi ", Toast.LENGTH_SHORT).show();
                         return true;
@@ -127,19 +165,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         drawerLayout = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.openDrawer, R.string.closeDrawer) {
             @Override
             public void onDrawerClosed(View drawerView) {
 
                 super.onDrawerClosed(drawerView);
+                hiddenKeyboard();
+
+
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
 
                 super.onDrawerOpened(drawerView);
+                hiddenKeyboard();
             }
         };
 
@@ -147,20 +188,7 @@ public class MainActivity extends AppCompatActivity {
 
         actionBarDrawerToggle.syncState();
 
-
-        txtIndonesia = findViewById(R.id.txtIndonesia);
-        txtInggris = findViewById(R.id.txtInggris);
-        txtArab = findViewById(R.id.txtArab);
-
-        txtInggris2 = findViewById(R.id.txtInggris2);
-        txtArab2 = findViewById(R.id.txtArab2);
-        txtIndonesia2 = findViewById(R.id.txtIndonesia2);
-
-        txtArab3 = findViewById(R.id.txtArab3);
-        txtIndonesia3 = findViewById(R.id.txtIndonesia3);
-        txtInggris3 = findViewById(R.id.txtInggris3);
-
-        btnTerjemahan = findViewById(R.id.btnTerjemah);
+        //Button yg berfungsi mengeksekusi terjemahan dari bahasa Indonesia
         btnTerjemahan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnTranslate = findViewById(R.id.btnTranslate);
+        //Button yg berfungsi mengeksekusi terjemahan dari bahasa Inggris
         btnTranslate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,32 +205,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnTarjama = findViewById(R.id.btnTarjama);
+        ////Button yg berfungsi mengeksekusi terjemahan dari bahasa Arab
         btnTarjama.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getTarjama();
+
             }
         });
 
-        frameLayout = findViewById(R.id.frame1);
-        frameLayout2 = findViewById(R.id.frame2);
-        frameLayout3 = findViewById(R.id.frame3);
+        setFavoriteBtnIndo();
+        setFavoriteBtnIng();
+        setFavoriteBtnArab();
+
+        //Button untuk refresh
+        imgRefresh = findViewById(R.id.ic_refresh);
+        imgRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setIndonesia();
+                setArab();
+                setInggris();
+                favoriteButtonIndo.setVisibility(View.GONE);
+                favoriteButtonEng.setVisibility(View.GONE);
+                favoriteButtonArab.setVisibility(View.GONE);
+            }
+        });
+
+
 
 
     }
 
+    //method untuk menjalankan fungsi terjemahan dari kata yang di-inputkan(bahasa Indonesia)
 
     public void getTerjemahan() {
         inputan = txtIndonesia.getText();
         if (inputan.equals("")) {
             Toast.makeText(getBaseContext(), "Masukkan kata terlebih dahulu", Toast.LENGTH_SHORT).show();
+            setIndonesia();
         } else {
 
             String bhsinggris = "";
             String bhsarab = "";
             String indonesiaword = txtIndonesia.getText();
+            favoriteButtonIndo.setVisibility(View.VISIBLE);
+            favoriteButtonIndo.setFavorite(false);
 
+            //memeriksa kata yang diinput lalu di proses di database
             kamusCursor = db.rawQuery("SELECT kamus_id, INDONESIA, INGGRIS, ARAB FROM kamus where INDONESIA='"
                     + indonesiaword
                     + "' ORDER BY INDONESIA", null);
@@ -213,15 +263,96 @@ public class MainActivity extends AppCompatActivity {
                     bhsinggris = kamusCursor.getString(2);
                     bhsarab = kamusCursor.getString(3);
                 }
+
             } else {
+                favoriteButtonIndo.setFavorite(false);
+                favoriteButtonIndo.setVisibility(View.GONE);
                 Toast.makeText(getBaseContext(), "Kata belum ada di database", Toast.LENGTH_SHORT).show();
             }
 
             txtInggris.setText(bhsinggris);
             txtArab.setText(bhsarab);
 
+
+            hiddenKeyboard();
+
         }
 
+
+    }
+
+
+    public void getTranslate() {
+
+        inputan2 = txtInggris2.getText();
+        if (inputan2.equals("")) {
+            Toast.makeText(getBaseContext(), "Please input word", Toast.LENGTH_SHORT).show();
+        } else {
+
+            String bhsindonesia = "";
+            String bhsarab = "";
+            String englishword = txtInggris2.getText();
+            favoriteButtonEng.setFavorite(false);
+            favoriteButtonEng.setVisibility(View.VISIBLE);
+
+            kamusCursor = db.rawQuery("SELECT kamus_id, INGGRIS, INDONESIA, ARAB FROM kamus where INGGRIS='"
+                    + englishword
+                    + "' ORDER BY INGGRIS", null);
+
+            if (kamusCursor.moveToFirst()) {
+                for (; !kamusCursor.isAfterLast();
+                     kamusCursor.moveToNext()) {
+                    bhsindonesia = kamusCursor.getString(2);
+                    bhsarab = kamusCursor.getString(3);
+                }
+            } else {
+                favoriteButtonEng.setFavorite(false);
+                favoriteButtonEng.setVisibility(View.GONE);
+                Toast.makeText(getBaseContext(), "Kata belum ada di database", Toast.LENGTH_SHORT).show();
+            }
+
+            txtIndonesia2.setText(bhsindonesia);
+            txtArab2.setText(bhsarab);
+            hiddenKeyboard();
+
+        }
+
+    }
+
+    public void getTarjama() {
+
+        inputan3 = txtArab3.getText();
+        if (inputan3.equals("")) {
+            Toast.makeText(getBaseContext(), "Please input word", Toast.LENGTH_SHORT).show();
+        } else {
+
+            String bhsindonesia = "";
+            String bhsinggris = "";
+            String arabword = txtArab3.getText();
+            favoriteButtonArab.setVisibility(View.VISIBLE);
+            favoriteButtonArab.setFavorite(false);
+
+            kamusCursor = db.rawQuery("SELECT kamus_id, ARAB, INDONESIA, INGGRIS FROM kamus where ARAB='"
+                    + arabword
+                    + "' ORDER BY ARAB", null);
+
+            if (kamusCursor.moveToFirst()) {
+                for (; !kamusCursor.isAfterLast();
+                     kamusCursor.moveToNext()) {
+                    bhsindonesia = kamusCursor.getString(2);
+                    bhsinggris = kamusCursor.getString(3);
+                }
+            } else {
+                favoriteButtonArab.setFavorite(false);
+                favoriteButtonArab.setVisibility(View.GONE);
+                Toast.makeText(getBaseContext(), "Kata belum ada di database", Toast.LENGTH_SHORT).show();
+            }
+
+            txtIndonesia3.setText(bhsindonesia);
+            txtInggris3.setText(bhsinggris);
+            hiddenKeyboard();
+
+        }
 
     }
 
@@ -243,148 +374,128 @@ public class MainActivity extends AppCompatActivity {
         txtInggris3.setText(null);
     }
 
+    public void setFavoriteBtnIndo() {
+        favoriteButtonIndo.setFavorite(false, true);
+        favoriteButtonIndo.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        if (favorite) {
+                            dataFavoriteIndo();
+                        }
 
-    public void getTranslate() {
 
-        inputan2 = txtInggris2.getText();
-        if (inputan2.equals("")) {
-            Toast.makeText(getBaseContext(), "Please input word", Toast.LENGTH_SHORT).show();
-        } else {
-
-            String bhsindonesia = "";
-            String bhsarab = "";
-            String englishword = txtInggris2.getText();
-
-            kamusCursor = db.rawQuery("SELECT kamus_id, INGGRIS, INDONESIA, ARAB FROM kamus where INGGRIS='"
-                    + englishword
-                    + "' ORDER BY INGGRIS", null);
-
-            if (kamusCursor.moveToFirst()) {
-                for (; !kamusCursor.isAfterLast();
-                     kamusCursor.moveToNext()) {
-                    bhsindonesia = kamusCursor.getString(2);
-                    bhsarab = kamusCursor.getString(3);
+                    }
                 }
-            } else {
-                Toast.makeText(getBaseContext(), "Kata belum ada di database", Toast.LENGTH_SHORT).show();
-            }
+        );
+    }
 
-            txtIndonesia2.setText(bhsindonesia);
-            txtArab2.setText(bhsarab);
+    public void setFavoriteBtnIng() {
+        favoriteButtonEng.setFavorite(false, true);
+        favoriteButtonEng.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        if (favorite) {
+                            dataFavoriteIng();
+                        }
+                    }
+                }
+        );
+    }
 
+    public void setFavoriteBtnArab() {
+        favoriteButtonArab.setFavorite(false, true);
+        favoriteButtonArab.setOnFavoriteChangeListener(
+                new MaterialFavoriteButton.OnFavoriteChangeListener() {
+                    @Override
+                    public void onFavoriteChanged(MaterialFavoriteButton buttonView, boolean favorite) {
+                        if (favorite) {
+                            dataFavoriteArab();
+                        }
+                    }
+                }
+        );
+    }
+
+    private void dataFavoriteIndo() {
+        String bhsindonesia = txtIndonesia.getText();
+        String bhsinggris = txtInggris.getText().toString();
+        String bhsarab = txtArab.getText().toString();
+
+
+        ContentValues cv = new ContentValues();
+        cv.put(FAVORITEINDO, bhsindonesia);
+        cv.put(FAVORITEING, bhsinggris);
+        cv.put(FAVORITEARAB, bhsarab);
+        /*  Log.i("data", "dada" + bhsindonesia);*/
+        if (db.insert("kamus", FAVORITEINDO, cv) > 0 && db.insert("kamus", FAVORITEING, cv) > 0 &&
+                db.insert("kamus", FAVORITEARAB, cv) > 0) {
+            Toast.makeText(getBaseContext(), "Data berhasil tersimpan", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getBaseContext(), "Data gagal tersimpan", Toast.LENGTH_LONG).show();
         }
 
+
     }
+
+    private void dataFavoriteIng() {
+        String bhsindonesia = txtIndonesia2.getText().toString();
+        String bhsinggris = txtInggris2.getText();
+        String bhsarab = txtArab2.getText().toString();
+        if (bhsindonesia.equals("") || bhsinggris.equals("") || bhsarab.equals("")) {
+            Toast.makeText(getBaseContext(), "Silahkan isi terlebih dahulu", Toast.LENGTH_LONG).show();
+        } else {
+
+            ContentValues cv = new ContentValues();
+            cv.put(FAVORITEINDO, bhsindonesia);
+            cv.put(FAVORITEING, bhsinggris);
+            cv.put(FAVORITEARAB, bhsarab);
+            Log.i("data", "dada" + bhsindonesia);
+            if (db.insert("kamus", FAVORITEINDO, cv) > 0 && db.insert("kamus", FAVORITEING, cv) > 0 &&
+                    db.insert("kamus", FAVORITEARAB, cv) > 0) {
+                Toast.makeText(getBaseContext(), "Data berhasil tersimpan", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getBaseContext(), "Data gagal tersimpan", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
+    private void dataFavoriteArab() {
+        String bhsindonesia = txtIndonesia3.getText().toString();
+        String bhsinggris = txtInggris3.getText().toString();
+        String bhsarab = txtArab3.getText();
+        if (bhsindonesia.equals("") || bhsinggris.equals("") || bhsarab.equals("")) {
+            Toast.makeText(getBaseContext(), "Silahkan isi terlebih dahulu", Toast.LENGTH_LONG).show();
+        } else {
+
+            ContentValues cv = new ContentValues();
+            cv.put(FAVORITEINDO, bhsindonesia);
+            cv.put(FAVORITEING, bhsinggris);
+            cv.put(FAVORITEARAB, bhsarab);
+
+            if (db.insert("kamus", FAVORITEINDO, cv) > 0 && db.insert("kamus", FAVORITEING, cv) > 0 &&
+                    db.insert("kamus", FAVORITEARAB, cv) > 0) {
+                Toast.makeText(getBaseContext(), "Data berhasil tersimpan", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getBaseContext(), "Data gagal tersimpan", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
-            // finish();
+            finish();
         }
     }
-
-    public void getTarjama() {
-
-        inputan3 = txtArab3.getText();
-        if (inputan3.equals("")) {
-            Toast.makeText(getBaseContext(), "Please input word", Toast.LENGTH_SHORT).show();
-        } else {
-
-            String bhsindonesia = "";
-            String bhsinggris = "";
-            String arabword = txtArab3.getText();
-
-            kamusCursor = db.rawQuery("SELECT kamus_id, ARAB, INDONESIA, INGGRIS FROM kamus where ARAB='"
-                    + arabword
-                    + "' ORDER BY ARAB", null);
-
-            if (kamusCursor.moveToFirst()) {
-                for (; !kamusCursor.isAfterLast();
-                     kamusCursor.moveToNext()) {
-                    bhsindonesia = kamusCursor.getString(2);
-                    bhsinggris = kamusCursor.getString(3);
-                }
-            } else {
-                Toast.makeText(getBaseContext(), "Kata belum ada di database", Toast.LENGTH_SHORT).show();
-            }
-
-            txtIndonesia3.setText(bhsindonesia);
-            txtInggris3.setText(bhsinggris);
-
-        }
-
-    }
-
-
-    @SuppressLint("InflateParams")
-    private void DialogForm() {
-
-        Builder = new AlertDialog.Builder(this);
-        inflater = getLayoutInflater();
-        dialogView = inflater.inflate(R.layout.form_about, null);
-        Builder.setView(dialogView);
-        Builder.setCancelable(true);
-        Builder.setIcon(R.mipmap.ic_launcher);
-        Builder.show();
-
-
-    }
-
 
 }
 
- /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_filter:
-                DialogForm();
-                return true;
-
-           case R.id.selectIndonesia:
-                frameLayout2.setVisibility(View.GONE);
-                frameLayout3.setVisibility(View.GONE);
-                frameLayout.setVisibility(View.VISIBLE);
-                setIndonesia();
-                return true;
-            case R.id.selectInggris:
-                frameLayout.setVisibility(View.GONE);
-                frameLayout3.setVisibility(View.GONE);
-                frameLayout2.setVisibility(View.VISIBLE);
-                setInggris();
-                return true;
-            case R.id.selectArab:
-                frameLayout.setVisibility(View.GONE);
-                frameLayout2.setVisibility(View.GONE);
-                frameLayout3.setVisibility(View.VISIBLE);
-                setArab();
-                return true;
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }*/
-
-
-    /*@Override
-    public void onDestroy() {
-        super.onDestroy();
-        try {
-            kamusCursor.close();
-            db.close();
-        } catch (Exception ignored) {
-
-        }
-    } */

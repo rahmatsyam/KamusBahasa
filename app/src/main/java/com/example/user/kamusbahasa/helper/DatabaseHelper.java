@@ -7,10 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "dbkamus";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String INGGRIS = "inggris";
     private static final String INDONESIA = "indonesia";
     private static final String ARAB = "arab";
+    private static  final String FAVORITEINDO = "favoriteindo";
+    private static  final String FAVORITEING= "favoriteing";
+    private static  final String FAVORITEARAB = "favoritearab";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -21,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void createTable(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS kamus");
         db.execSQL("CREATE TABLE if not exists  kamus( kamus_id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , " +
-                "indonesia TEXT, inggris TEXT, arab TEXT);"
+                "indonesia TEXT, inggris TEXT, arab TEXT,favoriteindo TEXT, favoriteing TEXT, favoritearab TEXT);"
         );
     }
 
