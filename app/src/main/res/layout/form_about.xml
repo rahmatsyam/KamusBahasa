@@ -16,16 +16,24 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/splash_logo" />
+            android:src="@drawable/logo_unm" />
 
 
         <TextView
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="Kamus Aneka Bahasa 1.0"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="oleh"
             android:textAllCaps="true"
             android:textStyle="bold" />
 
@@ -34,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="Nur Fitriah Mukhlis"
             android:textAllCaps="true"
             android:textStyle="bold" />
@@ -45,8 +53,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="1329040083"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="ptik"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="Fakultas teknik"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="universitas negeri makassar"
             android:textAllCaps="true"
             android:textStyle="bold" />
 

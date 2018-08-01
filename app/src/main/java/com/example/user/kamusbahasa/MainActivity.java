@@ -428,7 +428,7 @@ public class MainActivity extends BaseActivity {
         cv.put(FAVORITEINDO, bhsindonesia);
         cv.put(FAVORITEING, bhsinggris);
         cv.put(FAVORITEARAB, bhsarab);
-        /*  Log.i("data", "dada" + bhsindonesia);*/
+
         if (db.insert("kamus", FAVORITEINDO, cv) > 0 && db.insert("kamus", FAVORITEING, cv) > 0 &&
                 db.insert("kamus", FAVORITEARAB, cv) > 0) {
             Toast.makeText(getBaseContext(), "Data berhasil tersimpan", Toast.LENGTH_LONG).show();
